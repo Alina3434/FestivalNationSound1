@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <title>@ViewData["Title"] - Festival Nation Sounds</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/FestivalNationSound.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.awesome-markers/2.0.0/leaflet.awesome-markers.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.awesome-markers/2.0.0/leaflet.awesome-markers.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://kit.fontawesome.com/21b7252a13.js" crossorigin="anonymous"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdn.maptiler.com/maptiler-sdk-js/v3.0.1/maptiler-sdk.umd.min.js"></script>
+    <link href="https://cdn.maptiler.com/maptiler-sdk-js/v3.0.1/maptiler-sdk.css" rel="stylesheet" />
+</head>
+<body>
+    <header>
+        
+        <div class="fontfestival">
+            <a class="navbar-brand festivaltitre titretaille d-flex justify-content-center" asp-area="" asp-controller="Home" asp-action="Index">Festival Nation Sounds</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white  border-bottom box-shadow">
+            <div class="container-fluid fontfestival">
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        
+                     
+                        <li class="nav-item">
+                            <a class="nav-link text-warning" asp-area="" asp-controller="Partenaires" asp-action="Partenaires"><strong>Nos partenaires</strong></a>
+                        </li>
+                        <li class="nav-item">
+                            <div class="dropdown">
+                                <button class="btn menu dropdown-toggle me-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <strong>Informations Pratiques</strong>
+                                    
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="stationner">Ou stationner</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="dormir">Ou se loger</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="manger">Ou se restaurer</a></li>
+                                    
+                                </ul>
+
+                            </div>
+                  
+                        </li>
+                        <li>
+                            <div class="dropdown">
+                                <button class="btn menu   dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <strong>Concert</strong>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Concert" asp-action="planning">Planning des concerts</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Concert" asp-action="programme"> Programmation du festival</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-warning " asp-area="" asp-controller="Carte" asp-action="Carte"><strong>Carte intéractive</strong> </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+       
+    </header>
+    <div class="fontpage">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top  footer fontfestival ">
+        <div class="container row row-cols-3 footermobile   ">
+            <div class="col-3 festivaltitre">
+                &copy; 2024 - FestivalNationSound -
+            </div>
+            <div class="col-6">
+                <a href="https://www.facebook.com/Nation.festival"><img src="~/images/réseau sociaux/facebook.png" class="reseau m-2" /></a>
+                <a href="https://www.instagram.com/festival.nationsounds/"><img src="~/images/réseau sociaux/instagram_logo_2022.svg.webp" class="reseau m-2" /></a>
+                <a href="https://www.linkedin.com/in/nationsoundsfestival/?originalSubdomain=fr"><img src="~/images/réseau sociaux/linkedin_logo.svg.png" class="reseaurectangle m-2" /></a>
+                <a href="https://www.youtube.com/watch?v=X8ZuUwMW6jY&ab_channel=NationSounds"><img src="~/images/réseau sociaux/youtube.png" class="reseaurectangle m-2" /></a>
+
+            </div>
+          
+            <div class="col-3">
+                <a asp-area="" asp-controller="Home" asp-action="contact" class="link">Contactez-nous</a>
+                <a asp-area="" asp-controller="Home" asp-action="Privacy" class="link">Mentions Légales</a>
+            </div>
+            
+        </div>
+       
+    </footer>
+    
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

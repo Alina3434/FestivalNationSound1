@@ -1,0 +1,215 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+.reseau{
+    width: 50px;
+    height: 50px;
+}
+
+.reseaurectangle{
+    width: 100px;
+    height: 50px;
+}
+
+.link {
+    text-decoration: none;
+    color: #F26619;
+    
+}
+/*mettre la les ecruitures du menu en jaune foncé*/
+.navbarcolor {
+    color: #F6B12D;
+}
+
+.linkcolor{
+    color: black;
+}
+
+.festivaltitre {
+    color: #F26619;
+    pointer-events: auto;
+}
+.fontfestival {
+    background-color: #335F8A;
+}
+.titretaille{
+    font-size:100px;
+}
+.festivaltitre2 {
+    color: white;
+}
+.menu {
+    background-color: #335F8A;
+    color: #F6B12D;
+}
+.billetterie {
+    background-color: #335F8A;
+}
+.billetterietexte {
+    text-decoration: none;
+    color: #F6B12D;
+    font-size: 100px;
+    text-transform: uppercase;
+    
+}
+
+.tailleImage {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.backgroundpage {
+    background-color: #55D5E0;
+}
+.btnreserver {
+    background-color: #F6B12D;
+    color: #F26619;
+    
+}
+.btnstationner {
+    background-color: #F26619;
+    color: #2F4558;
+}
+.pointrestauration a{
+    text-decoration: none;
+    color: black;
+}
+.retraitpuce{
+    list-style-type:none;
+}
+ul{
+    list-style-type: none;
+}
+.carremanger {
+    display: inline-block;
+    border: solid;
+    width: 30%;
+    height: 70%;
+    padding: 18px;
+    margin: 50px;
+    justify-content: center;
+    background-color: #2F4558;
+    color: #F26619;
+}
+
+.cardprogramme {
+    width: 300px;
+   
+    background-color: #335F8A;
+    color: #F26619;
+    
+}
+
+.cardimage{
+    height: 180px;
+    width: 300px;
+}
+
+.opacity {
+    background: hsl(188, 100%, 37%, .5);
+}
+.fontpage {
+    background-color: #55D5E0;
+}
+
+.carreConcert {
+    background-color: #2F4558;
+    color: #F26619;
+}
+
+.tailleartiste {
+    width: 30px;
+    height: 30px;
+}
+
+
+
+/*pour la page partenaires */
+.imagetaille {
+    width: 500px;
+    height: 300px;
+}
+
+
+.fontcategorie {
+    color: #F6B12D;
+}
+
+
+
+
+/*pour la carte intéractive*/
+
+#map {
+    background-color: darkred;
+    width: auto;
+    height: 500px;
+}
+
+
+
+.taillefiltre{
+    width:  50px px;
+    height:40 px;
+}
+
+
+@media only screen and (max-width: 480px) {
+    /*titre du festival*/
+    
+    .titretaille {
+        font-size: 30px;
+    }
+
+    .billetterietexte {
+        text-decoration: none;
+        color: #F6B12D;
+        font-size: 50px;
+        text-transform: uppercase;
+    }
+
+
+    .imagetaillepetit {
+        height: 200px;
+        width: 300px;
+    }
+
+/*footer*/
+
+    .footermobile{
+        justify-content: center;
+        display: block;
+
+    }
+
+/*stationner*/
+
+    .carte {
+        width :350px;
+        height:380px;
+    }
+
+    .test {
+        background-image: url('../images/icone/biere.svg');
+    }
+}
+
+
+
+
+

@@ -1,0 +1,31 @@
+﻿<h1>Articles par Catégorie</h1>
+<div id="articles-container"></div>
+
+<script>
+    //$.getJSON("./JS/articles.json", function (json) {
+    //    console.log(json); // this will show the info it in firebug console
+    //});
+    function yolo(){
+        //$.ajax({
+        //    url: 'http://localhost/drupal/api/article',
+        //    Headers: 'Access-Control-Allow-Origin: *',
+        //    type: 'POST',
+        //    //dataType: 'json',
+        //    success: function (data) {
+        //        //var obj = JSON.parse(data);
+        //        console.log(data);
+        //    },
+        //    error: function (err) { console.log(err); }
+        //});
+        $.getJSON("../../JS/articles.json", function (json) {
+            console.log(json); // this will show the info it in firebug console
+        });
+    }
+    
+    //const userAction = async () => {
+    //    const response = await fetch('http://localhost/drupal/api/article');
+    //    const myJson = await response.json(); //extract JSON from the http response
+    //    // do something with myJson
+    //}
+    window.onload = yolo;
+</script>

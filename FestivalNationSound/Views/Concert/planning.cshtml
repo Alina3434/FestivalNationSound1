@@ -1,0 +1,301 @@
+﻿@{
+    ViewData["Title"] = "Planning des concerts";
+}
+<h1 class="d-flex justify-content-center"><strong>@ViewData["Title"]</strong></h1>
+
+<div id="filtre" class="ms-4">
+    <label for="scene">Scène :</label>
+    <select id="scene">
+        <option value="">Toutes les scènes</option>
+        <option value="Scène 1">Scène Saturne</option>
+        <option value="Scène 2">Scène Mars</option>
+        <option value="Scène 3">Scène Neptune</option>
+        <option value="Scène 4">Scène Jupiter</option>
+    </select>
+    <label for="date">Date :</label>
+    <input type="date" id="date">
+
+    <label for="heure">Heure :</label>
+    <input type="time" id="heure">
+</div>
+
+<div id="planning"></div>
+    <script>
+    fetch('../../JS/articles.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log(data);
+            
+            planningConcert(data);
+        })
+        .catch (error => {
+            console.error('There has been a problem with your fetch operation:', error);
+            });
+
+        
+        const toto = [];
+    
+    
+        var i = 1;
+            // planning artiste
+        function planningConcert(articles){
+
+            articles.forEach(element => {
+                if (element.article_etiquettes[0] == "2")
+                {
+                    // on crée une div qui englobe toutes les div et sur laquelle sera rattaché l'id planning            
+
+                    let concert = {
+                        scene: element.article_nom,
+                        date: element.field_date_concert,
+                        artiste: element.field_artiste_1,
+                        id : i
+                    }
+                    i++;
+                    toto.push(concert);
+                    let concert_2 = {
+                        scene: element.article_nom,
+                        date: element.field_date_concert_2,
+                        artiste: element.field_artiste_2,
+                        id : i
+                    }
+                    i++;
+                    toto.push(concert_2);
+                    let concert_3 = {
+                        scene: element.article_nom,
+                        date: element.field_date_concert_3,
+                        artiste: element.field_artiste_3,
+                        id :i
+                    }
+                    i++;
+                    toto.push(concert_3);
+
+               
+
+                
+                    let div = document.createElement("div");
+                
+                
+                
+                
+
+                    // on crée une div dans laquel on met une row.
+                    // elle sera rangée dans la div : div.
+
+                    let divrow = document.createElement("div");
+                    divrow.className = "row";
+                
+
+                    // on crée une div dans laquelle un met une col-3
+                    // elle sera rangée dans la divrow
+
+                    let divcol_1 = document.createElement("div");
+                    divcol_1.className = "col-3";
+
+                
+
+                    // on crée une div dans laquelle on met une bordure et une col-6
+                    // cette div englobe tout le carré dans lequel nous aurons la scene, la date, l'artiste et l'heure
+                    // elle sera rangée dans la divrow
+                
+
+                    let divprogramme = document.createElement("div");
+                    divprogramme.className = "col-6 border solid mt-4 carreConcert";
+                
+
+                    // on crée une div dans laquelle nous aurons un element strong  et un titre gros qui sera celui de la scene
+                    // elle sera rangée dans la divprogramme
+
+                    let divscene = document.createElement("div");
+                    divscene.className = "d-flex justify-content-center";
+                
+                    // on crée un element strong qui servira pour mettre en gras le nom de la scène ainsi que la date
+                    // elle sera rangée dans divscene
+
+                    let scene_gras = document.createElement("strong");
+
+                    // on crée un element Titre H2 qui comportera le nom de la scène : article_nom du fichier json
+                    // elle sera rangée dans la divscene
+
+                    let Titre = document.createElement("h2");
+                    Titre.innerHTML = element.article_nom ;
+
+                    //on crée une div qui insérera la date du concert
+                    // a l'intérieur sera rangé un element strong et un titre plus petit 
+                    // elle sera rangé dans la divprogramme
+
+                    let divdate = document.createElement("div");
+                    divdate.className = "p-4 d-flex justify-content-center";
+                
+
+                    // on crée un element strong qui sera rangé dans la divdate
+
+                    let date_gras = document.createElement("strong");
+
+                    //on crée un titre plus petit qui insérera la date du concert: field_date_concert
+                    // elle sera dans la divdate
+
+                    let petitTitre = document.createElement("h3");
+                    petitTitre.innerHTML = element.field_date_concert;
+
+                    // on crée une div dans laquelle sera ranger un paragraphe comportant l artiste et l'heure
+                    // elle sera rangée dans la divprogramme
+
+                    let divartistedate = document.createElement("div")
+                    divartistedate.className = "d-flex";
+               
+                
+                    // on crée un element paragraphe qui comporte le nom de l'artiste et la date
+                    // il sera rangé dans divartistedate
+
+                    let artistedate = document.createElement("p");
+                    artistedate.className = "ps-5";
+                    artistedate.innerHTML = element.field_artiste_1;
+
+                    // on crée une seconde divdate qui sera rangé dans div programme 
+                    // les elements seront identiques a la premiere divdate
+
+                    //on crée une div qui insérera la date du concert
+                    // a l'intérieur sera rangé un element strong et un titre plus petit
+                    // elle sera rangé dans la divprogramme
+
+                    let divdate_2 = document.createElement("div");
+                    divdate_2.className = "p-4 d-flex justify-content-center";
+                
+
+                    //on crée un titre plus petit qui insérera la date du concert: field_date_concert
+                    // elle sera dans la divdate
+
+                    let petitTitre_2 = document.createElement("h3");
+                    petitTitre_2.innerHTML = element.field_date_concert_2;
+
+                    // on crée une div dans laquelle sera ranger un paragraphe comportant l artiste et l'heure
+                    // elle sera rangée dans la divprogramme
+
+                    let divartistedate_2 = document.createElement("div")
+                    divartistedate_2.className = "d-flex";
+                
+
+                    // on crée un element paragraphe qui comporte le nom de l'artiste et la date
+                    // il sera rangé dans divartistedate
+
+                    let artistedate_2 = document.createElement("p");
+                    artistedate_2.className = "ps-5";
+                    artistedate_2.innerHTML = element.field_artiste_2;
+
+
+             
+                    //on crée une div qui insérera la date du concert
+                    // a l'intérieur sera rangé un element strong et un titre plus petit
+                    // elle sera rangé dans la divprogramme
+
+                    let divdate_3 = document.createElement("div");
+                    divdate_3.className = "p-4 d-flex justify-content-center";
+               
+
+                    //on crée un titre plus petit qui insérera la date du concert: field_date_concert
+                    // elle sera dans la divdate
+
+                    let petitTitre_3 = document.createElement("h3");
+                    petitTitre_3.innerHTML = element.field_date_concert_3;
+
+                    // on crée une div dans laquelle sera ranger un paragraphe comportant l artiste et l'heure
+                    // elle sera rangée dans la divprogramme
+
+                    let divartistedate_3 = document.createElement("div")
+                    divartistedate_3.className = "d-flex";
+                
+
+                    // on crée un element paragraphe qui comporte le nom de l'artiste et la date
+                    // il sera rangé dans divartistedate
+
+                    let artistedate_3 = document.createElement("p");
+                    artistedate_3.className = "ps-5";
+                    artistedate_3.innerHTML = element.field_artiste_3;
+
+                    // on crée une div dans laquelle un met une col-3
+                    // elle sera rangée dans la divrow
+
+                    let divcol_2 = document.createElement("div");
+                    divcol_2.className = "col-3";
+
+                    // on crée un id planning qui sera rattaché à la div qui englobe la div row
+
+                    let planning = document.getElementById("planning");
+                
+                    divartistedate_3.appendChild(artistedate_3);
+                    divdate_3.appendChild(date_gras);
+                    divdate_3.appendChild(petitTitre_3);
+                    divartistedate_2.appendChild(artistedate_2);
+                    divdate_2.appendChild(date_gras);
+                    divdate_2.appendChild(petitTitre_2);
+                
+                    divartistedate.appendChild(artistedate);
+                    divdate.appendChild(date_gras);
+                    divdate.appendChild(petitTitre);
+                    divscene.appendChild(scene_gras);
+                    divscene.appendChild(Titre);
+                    divprogramme.appendChild(divscene);
+                    divprogramme.appendChild(divdate);
+                    divprogramme.appendChild(divartistedate);
+                    divprogramme.appendChild(divdate_2);
+                    divprogramme.appendChild(divartistedate_2);
+                    divprogramme.appendChild(divdate_3);
+                    divprogramme.appendChild(divartistedate_3);
+
+                    div.appendChild(divrow);
+                    planning.appendChild(div);
+                    divrow.appendChild(divcol_1);
+                    divrow.appendChild(divprogramme);
+                    divrow.appendChild(divcol_2);  
+               
+                }
+            })
+            console.log(toto);
+            const cleanedEvents = toto.map(event => {
+                // Extraction de la date et heure
+                const dateMatch = event.date.match(/datetime="([^"]+)"/);
+                const datetime = dateMatch ? dateMatch[1] : null;
+
+                let localDate = null;
+                let localTime = null;
+
+                if (datetime) {
+                    const dateObject = new Date(datetime);
+                    localDate = dateObject.toLocaleDateString("fr-FR");
+                    localTime = dateObject.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" });
+                }
+
+                // Nettoyage du nom de l'artiste
+                const artiste = event.artiste.replace(/<\/?[^>]+(>|$)/g, "").trim();
+
+                // Retourner un objet nettoyé
+                return {
+                    scene: event.scene,
+                    date: localDate,
+                    heure: localTime,
+                    artiste: artiste,
+                    id: event.id
+                };
+            });
+
+        // Afficher les résultats
+        console.log(cleanedEvents);
+
+        }
+
+        
+  // planningConcert();  
+
+
+      
+
+
+
+</script>
+

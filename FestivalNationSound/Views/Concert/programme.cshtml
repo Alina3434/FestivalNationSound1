@@ -1,0 +1,73 @@
+﻿@{
+    ViewData["Title"] = "Programmation du festival";
+}
+<h1 class="d-flex justify-content-center"><strong> @ViewData["Title"]</strong></h1>
+
+<div id="programmation">
+   
+</div>
+
+<script>
+    fetch('../../JS/articles.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log(data);
+            programmationConcert(data);
+        })
+        .catch(error => {
+            console.error('There has been a problem with your fetch operation:', error);
+        });
+    function programmationConcert(articles) {
+
+        articles.forEach(element => {
+            if (element.article_etiquettes[0] == "1") {
+                let div = document.createElement("div"); /* div qui englobe toutes les cards*/
+                
+                let divprogramme = document.createElement("div"); /*div qui crée la card*/
+                div.className = "d-flex justify-content-center";
+                let image = document.createElement("img");
+                let divbody = document.createElement("div");/* div dans laquelle on insére la date */
+                let date = document.createElement("p"); /*insere la date  */
+                let dateGras=document.createElement("strong");
+                let programmation = document.getElementById("programmation");
+                
+                
+                var lien = '@Url.Action("artiste","Concert")';
+                let link = document.createElement("a");
+                link.href = lien + "?id=" + element.field_article;
+                divprogramme.className = "card cardprogramme m-4";
+                image.src="../images/artiste programmation/" + element.nid + ".jpg";
+                image.className = "card - img - top cardimage";
+                divbody.className = "card-body cardprogramme";
+                date.className = "card-text ";
+                dateGras.innerHTML=  element.field_date_programmation;
+                date.appendChild(dateGras);
+
+                link.appendChild(image);
+                divprogramme.appendChild(link);
+                divbody.appendChild(date);
+                divprogramme.appendChild(divbody);
+                
+                div.appendChild(divprogramme);
+                programmation.appendChild(div);
+
+        }
+    })
+    }
+
+  
+   
+      
+
+
+
+
+
+
+</script>
+

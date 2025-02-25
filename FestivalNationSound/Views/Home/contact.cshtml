@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewData["Title"] = "Contactez-nous";
+}
+<div class="fontpage">
+    <h1 class="d-flex justify-content-center">@ViewData["Title"]</h1>
+    <div class="d-flex justify-content-center">
+        <div>
+            <form>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Votre adresse mail</label>
+                    <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
+
+                </div>
+                <div class="mb-3">
+                    <label for="nom" class="form-label">Votre nom</label>
+                    <input type="text" class="form-control" id="nom">
+                </div>
+                <div class="mb-3">
+                    <label for="message" class="form-label">Votre message</label>
+                    <textarea class="form-control" id="message" placeholder="Laissez votre message"></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+
+

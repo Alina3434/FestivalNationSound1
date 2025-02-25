@@ -1,0 +1,73 @@
+﻿@*
+    
+*@
+@{
+}
+
+
+<div id="artiste"></div>
+<script>
+
+    fetch('../../JS/articles.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log(data);
+            artisteConcert(data);
+        })
+        .catch(error => {
+            console.error('There has been a problem with your fetch operation:', error);
+        });
+        function artisteConcert(articles){
+        articles.forEach(element => {
+            if (element.nid == @ViewBag.id) {
+                let div=document.createElement("div");
+                let divrow = document.createElement("div");
+                divrow.className = "row";
+                let span = document.createElement("div");
+                span.className = "col-2";
+                let divglobale = document.createElement("div");
+                divglobale.className = "col-8 opacity mt-5 pb-2 pt-2";
+                let divartiste = document.createElement("div");
+                divartiste.className = "d-flex justify-content-center";
+                let artisteGras= document.createElement("strong");
+                let artisteTitre = document.createElement("h1");
+                artisteTitre.innerHTML = element.article_nom;
+                let divdateArtisteConcert=document.createElement("div");
+                let artisteSousTitre=document.createElement("h2");
+                artisteSousTitre.innerHTML = element.field_article_resume;
+                let divartisteContenu=document.createElement("div");
+                let artisteParagraphe=document.createElement("p");
+                artisteParagraphe.innerHTML = element.article_contenu;
+                let divVideo=document.createElement("div");
+                divVideo.className = "d-flex justify-content-center";
+                let span2 = document.createElement("div");
+
+                let artiste=document.getElementById("artiste");
+
+                div.appendChild(divrow);
+                divrow.appendChild(span);
+                divrow.appendChild(divglobale);
+                divglobale.appendChild(divartiste);
+                divartiste.appendChild(artisteGras);
+                divartiste.appendChild(artisteTitre);
+                divglobale.appendChild(divdateArtisteConcert);
+                divdateArtisteConcert.appendChild(artisteGras);
+                divdateArtisteConcert.appendChild(artisteSousTitre);
+                divglobale.appendChild(divartisteContenu);
+                divartisteContenu.appendChild(artisteParagraphe);
+                divrow.appendChild(span2);
+                artiste.appendChild(div);
+
+
+
+            }
+            });
+
+        }
+    
+</script>

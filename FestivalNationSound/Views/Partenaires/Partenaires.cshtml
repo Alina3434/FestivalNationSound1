@@ -1,0 +1,230 @@
+﻿@{
+    ViewData["Title"] = "Nos partenaires";
+}
+
+<h1 class="d-flex justify-content-center"><strong>Nos partenaires</strong> </h1>
+
+<div id="partenaires">
+
+    <div id="radio">
+        <div>
+            <!-- div titre partenaires-->
+            <h2 class="d-flex justify-content-center mt-5 fontcategorie"><strong>RADIOS</strong> </h2>
+        </div>
+        <div class="container justify-content-center ">
+            <div class="row gx-5" id="image-container_radio">
+                
+            </div>
+
+        </div>
+    </div>
+    <div id="presse">
+        <div>
+            <h2 class="d-flex justify-content-center mt-4 mb-4 fontcategorie"><strong>PRESSE</strong> </h2>
+        </div>
+        <div class=" container justify-content-center ">
+            <div class="row gx-5" id="image-container_presse">
+                
+            </div>
+
+        </div>
+
+    </div>
+    <div id="musique">
+        <div>
+            <h2 class="d-flex justify-content-center mt-5 fontcategorie"><strong>MUSIQUE</strong> </h2>
+        </div>
+        <div class="container justify-content-center ">
+            <div class="row gx-5" id="image-container_musique">
+                
+            </div>
+
+        </div>
+
+    </div>
+    <div id="etat">
+        <div>
+            <h2 class="d-flex justify-content-center mt-5 fontcategorie"><strong>ETAT</strong> </h2>
+        </div>
+        <div class="container justify-content-center ">
+            <div class="row gx-5" id="image-container_Etat">
+               
+            </div>
+
+        </div>
+
+    </div>
+    
+</div>
+
+<script>
+    fetch('../../JS/articles.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log(data);
+            partenairesFestival(data);
+        })
+        .catch(error => {
+            console.error('There has been a problem with your fetch operation:', error);
+        });
+    function partenairesFestival(articles) {
+        articles.forEach(element => {
+
+            // radio
+
+            if (element.article_etiquettes[0]=="10") 
+            {
+                let divimage_1 = document.createElement("div"); // on crée la div qui englobera l'image 1
+                divimage_1.className = "col m-2";
+
+                const baseURL = "http://localhost/drupal/";
+                let container = document.getElementById("image-container_radio");
+                let imageHtml = element.field_image_2; 
+                imageHtml = imageHtml.replace('/drupal/', baseURL);
+                divimage_1.innerHTML = imageHtml;
+                container.appendChild(divimage_1);
+
+                let divimage_2 = document.createElement("div"); //on crée la div qui englobe l'image 2
+                divimage_2.className = "col m-2";
+
+                container = document.getElementById("image-container_radio");
+                imageHtml = element.field_image_3;
+                if (imageHtml != null){
+                    imageHtml= imageHtml.replace('/drupal/', baseURL);
+                    divimage_2.innerHTML = imageHtml;
+                    container.appendChild(divimage_2)
+                }
+                var images = document.querySelectorAll('#image-container_radio div img');
+
+                // Parcourir chaque image et appliquer des modifications
+                images.forEach((img) => {
+                    
+
+                    // Exemple : Modifier la largeur de l'image
+                    img.className = "tailleImage";
+                });
+
+                
+
+            }
+
+            //Etat
+
+
+            else if (element.article_etiquettes[0] == "7") 
+            {
+                let divimage_1 = document.createElement("div"); // on crée la div qui englobera l'image 1
+                divimage_1.className = "col m-2";
+
+                const baseURL = "http://localhost/drupal/";
+                let container = document.getElementById("image-container_Etat");
+                let imageHtml = element.field_image_2;
+                imageHtml = imageHtml.replace('/drupal/', baseURL);
+                divimage_1.innerHTML = imageHtml;
+                container.appendChild(divimage_1);
+
+                let divimage_2 = document.createElement("div"); //on crée la div qui englobe l'image 2
+                divimage_2.className = "col m-2";
+
+                container = document.getElementById("image-container_Etat");
+                imageHtml = element.field_image_3;
+                if (imageHtml != null) {
+                    imageHtml = imageHtml.replace('/drupal/', baseURL);
+                    divimage_2.innerHTML = imageHtml;
+                    container.appendChild(divimage_2)
+                }
+                var images = document.querySelectorAll('#image-container_Etat div img');
+
+                // Parcourir chaque image et appliquer des modifications
+                images.forEach((img) => {
+
+
+                    // Exemple : Modifier la largeur de l'image
+                    img.className = "tailleImage";
+                });
+            }
+
+
+            //// presse
+
+            else if (element.article_etiquettes[0] == "8") {
+                let divimage_1 = document.createElement("div"); // on crée la div qui englobera l'image 1
+                divimage_1.className = "col m-2";
+
+                const baseURL = "http://localhost/drupal/";
+                let container = document.getElementById("image-container_presse");
+                let imageHtml = element.field_image_2;
+                imageHtml = imageHtml.replace('/drupal/', baseURL);
+                divimage_1.innerHTML = imageHtml;
+                container.appendChild(divimage_1);
+
+                let divimage_2 = document.createElement("div"); //on crée la div qui englobe l'image 2
+                divimage_2.className = "col m-2";
+
+                container = document.getElementById("image-container_presse");
+                imageHtml = element.field_image_3;
+                if (imageHtml != null) {
+                    imageHtml = imageHtml.replace('/drupal/', baseURL);
+                    divimage_2.innerHTML = imageHtml;
+                    container.appendChild(divimage_2)
+                }
+                var images = document.querySelectorAll('#image-container_presse div img');
+
+                // Parcourir chaque image et appliquer des modifications
+                images.forEach((img) => {
+
+
+                    // Exemple : Modifier la largeur de l'image
+                    img.className = "tailleImage";
+                });
+
+            }
+
+            //// musique
+
+            else if (element.article_etiquettes[0] == "9"){
+
+                let divimage_1 = document.createElement("div"); // on crée la div qui englobera l'image 1
+                divimage_1.className = "col m-2";
+
+                const baseURL = "http://localhost/drupal/";
+                let container = document.getElementById("image-container_musique");
+                let imageHtml = element.field_image_2;
+                imageHtml = imageHtml.replace('/drupal/', baseURL);
+                divimage_1.innerHTML = imageHtml;
+                container.appendChild(divimage_1);
+
+                let divimage_2 = document.createElement("div"); //on crée la div qui englobe l'image 2
+                divimage_2.className = "col m-2";
+
+                container = document.getElementById("image-container_musique");
+                imageHtml = element.field_image_3;
+                if (imageHtml != null) {
+                    imageHtml = imageHtml.replace('/drupal/', baseURL);
+                    divimage_2.innerHTML = imageHtml;
+                    container.appendChild(divimage_2)
+                }
+                var images = document.querySelectorAll('#image-container_musique div img');
+
+                // Parcourir chaque image et appliquer des modifications
+                images.forEach((img) => {
+
+
+                    // Exemple : Modifier la largeur de l'image
+                    img.className = "tailleImage";
+                });
+            
+            }
+
+
+        }
+
+        );};
+        
+
+</script>
