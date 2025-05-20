@@ -3,24 +3,250 @@
 }
 <h1 class="d-flex justify-content-center"><strong>@ViewData["Title"]</strong></h1>
 
-<div id="filtre" class="ms-4">
-    <label for="scene">Scène :</label>
-    <select id="scene">
-        <option value="">Toutes les scènes</option>
-        <option value="Scène 1">Scène Saturne</option>
-        <option value="Scène 2">Scène Mars</option>
-        <option value="Scène 3">Scène Neptune</option>
-        <option value="Scène 4">Scène Jupiter</option>
-    </select>
-    <label for="date">Date :</label>
-    <input type="date" id="date">
+<div id="filtre" class="ms-4 mb-4 p-3 border rounded bg-light shadow-sm">
+    <div class="row g-3 align-items-center">
+        <!-- Filtre Scène -->
+        <div class="col-md-4">
+            <label for="scene" class="form-label fw-bold">Scène :</label>
+            <select id="scene" class="form-select">
+                <option value="">Toutes les scènes</option>
+            </select>
+        </div>
 
-    <label for="heure">Heure :</label>
-    <input type="time" id="heure">
+        <!-- Filtre Date -->
+        <div class="col-md-4">
+            <label for="date" class="form-label fw-bold">Date :</label>
+            <input type="date" id="date" class="form-control">
+        </div>
+
+        <!-- Filtre Heure -->
+        <div class="col-md-4">
+            <label for="heure" class="form-label fw-bold">Heure :</label>
+            <input type="time" id="heure" class="form-control">
+        </div>
+    </div>
 </div>
 
+
 <div id="planning"></div>
-    <script>
+<script>
+    let concerts = []; // Stocke les concerts après le fetch
+    let artistes = []; //Stocke les artiste après le fetch
+
+    // Récupération des données JSON
+    fetch('../../JS/articles.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            concerts = filterConcerts(data); // Extraction des concerts pertinents
+            cleanArtistsData(concerts);
+			artistes = filterArtistes(data); // Extraction des artistes pertinents
+            populateFilters(concerts); // Génération des options des filtres
+            displayFilteredConcerts(); // Affichage initial
+        })
+        .catch(error => {
+            console.error('There has been a problem with your fetch operation:', error);
+        });
+
+
+
+    // Filtrer les articles pertinents (concerts uniquement)
+    function filterConcerts(articles) {
+        return articles.filter(article => article.article_etiquettes.includes("2"));
+    }
+
+	// Filtrer les artistes 
+	function filterArtistes(articles) {
+		return articles.filter(article => article.article_etiquettes.includes("1"));
+	}
+
+    // Générer les options des filtres dynamiquement
+    function populateFilters(concerts) {
+        const sceneSelect = document.getElementById("scene");
+        const dateSelect = document.getElementById("date");
+        const heureSelect = document.getElementById("heure");
+
+        // Extraire les valeurs uniques
+        const scenes = [...new Set(concerts.map(concert => concert.article_nom))];
+        const dates = [...new Set(
+            concerts.flatMap(concert => [
+                extractDate(concert.field_date_concert),
+                extractDate(concert.field_date_concert_2),
+                extractDate(concert.field_date_concert_3)
+            ]).filter(date => date)
+        )];
+        const heures = [...new Set(
+            concerts.flatMap(concert => [
+                extractTime(concert.field_date_concert),
+                extractTime(concert.field_date_concert_2),
+                extractTime(concert.field_date_concert_3)
+            ]).filter(heure => heure)
+        )];
+
+        // Ajouter les options pour les scènes
+        scenes.forEach(scene => {
+            const option = document.createElement("option");
+            option.value = scene;
+            option.textContent = scene;
+            sceneSelect.appendChild(option);
+        });
+
+        // Ajouter les options pour les dates
+        dates.forEach(date => {
+            const option = document.createElement("option");
+            option.value = date;
+            option.textContent = date;
+            dateSelect.appendChild(option);
+        });
+
+        // Ajouter les options pour les heures
+        heures.forEach(heure => {
+            const option = document.createElement("option");
+            option.value = heure;
+            option.textContent = heure;
+            heureSelect.appendChild(option);
+        });
+    }
+
+    // Extraire la date d'un champ datetime
+    function extractDate(datetime) {
+        const match = datetime?.match(/datetime="([^T]+)T/);
+        return match ? match[1] : null;
+    }
+
+    // Extraire l'heure d'un champ datetime
+    function extractTime(datetime) {
+        const match = datetime?.match(/T([^"]+):/);
+        return match ? match[1] : null;
+    }
+
+    // Fonction pour filtrer les concerts en fonction des critères
+    function getFilteredConcerts() {
+        const scene = document.getElementById("scene").value;
+        const date = document.getElementById("date").value;
+        const heure = document.getElementById("heure").value;
+
+        return concerts.filter(concert => {
+            const matchesScene = !scene || concert.article_nom === scene;
+            const matchesDate = !date ||
+                [concert.field_date_concert, concert.field_date_concert_2, concert.field_date_concert_3]
+                    .some(d => extractDate(d) === date);
+            const matchesHeure = !heure ||
+                [concert.field_date_concert, concert.field_date_concert_2, concert.field_date_concert_3]
+                    .some(d => extractTime(d) === heure);
+
+            return matchesScene && matchesDate && matchesHeure;
+        });
+    }
+
+    // Fonction pour afficher les concerts filtrés
+    function displayFilteredConcerts() {
+        const filteredConcerts = getFilteredConcerts();
+        const groupedConcerts = groupByScene(filteredConcerts);
+        displayGroupedConcerts(groupedConcerts);
+    }
+
+    // Regrouper les concerts par scène
+    function groupByScene(concerts) {
+        return concerts.reduce((grouped, concert) => {
+            const scene = concert.article_nom;
+            if (!grouped[scene]) {
+                grouped[scene] = [];
+            }
+            grouped[scene].push({
+                artistes: [
+                    concert.field_artiste_1,
+                    concert.field_artiste_2,
+                    concert.field_artiste_3
+                ].filter(artiste => artiste), // Exclure les artistes vides
+                dates: [
+                    concert.field_date_concert,
+                    concert.field_date_concert_2,
+                    concert.field_date_concert_3
+                ].filter(date => date) // Exclure les dates vides
+            });
+            return grouped;
+        }, {});
+    }
+
+
+
+     // Afficher les concerts regroupés par scène
+    function displayGroupedConcerts(groupedConcerts) {
+        const planning = document.getElementById("planning");
+        planning.innerHTML = ""; // Réinitialiser l'affichage
+
+        const lienBase = '@Url.Action("artiste", "Concert")'; // Base du lien vers l'artiste
+
+        for (const [scene, concerts] of Object.entries(groupedConcerts)) {
+            // Conteneur pour la scène
+            const sceneDiv = document.createElement("div");
+            sceneDiv.className = "scene-group mb-5 p-4 border rounded shadow-lg bg-light animate__animated animate__fadeIn";
+
+            // Titre de la scène
+            const sceneTitle = document.createElement("h2");
+            sceneTitle.textContent = scene;
+            sceneTitle.className = "scene-title text-center mb-4 text-primary fw-bold";
+            sceneDiv.appendChild(sceneTitle);
+
+            // Ajouter les concerts de cette scène
+            concerts.forEach(concert => {
+                const concertDiv = document.createElement("div");
+                concertDiv.className = "concert-item border p-3 mb-3 rounded bg-white shadow-sm";
+
+                // Liste des artistes avec des liens
+                const artistesLinks = concert.artistes.map(artiste => {
+                    const articleCorrespondant = artistes.find(c => c.article_nom.toUpperCase() === artiste.toUpperCase());
+                    if (articleCorrespondant) {
+                        const link = document.createElement("a");
+                        link.href = `${lienBase}?id=${articleCorrespondant.field_article}`;
+                        link.textContent = artiste;
+                        link.className = "text-decoration-none text-primary";
+                        return `<p>${link.outerHTML}</p>` ;
+                    }
+                    return `<p>${artiste}</p>` ; // Si aucun article correspondant, afficher le nom sans lien
+                }).join("<br/>");
+
+                concertDiv.innerHTML = `
+                    <p><strong>Artistes :</strong> ${artistesLinks}</p>
+                    <p><strong>Dates :</strong> ${concert.dates.join(", ")}</p>
+                `;
+
+                sceneDiv.appendChild(concertDiv);
+            });
+
+            // Ajouter le groupe de scène au planning
+            planning.appendChild(sceneDiv);
+        }
+    }
+
+        function removeHtmlTags(text) {
+        if (!text) return ""; // Si le texte est vide ou null, retourner une chaîne vide
+        return text.replace(/<\/?[^>]+(>|$)/g, "").trim(); // Supprimer les balises HTML et les espaces inutiles
+    }
+
+    // Exemple d'utilisation pour nettoyer les artistes dans les concerts
+    function cleanArtistsData(concerts) {
+        concerts.forEach(concert => {
+            concert.field_artiste_1 = removeHtmlTags(concert.field_artiste_1);
+            concert.field_artiste_2 = removeHtmlTags(concert.field_artiste_2);
+            concert.field_artiste_3 = removeHtmlTags(concert.field_artiste_3);
+        });
+    }
+
+    // Ajout des écouteurs d'événements pour les filtres
+    document.getElementById("scene").addEventListener("change", displayFilteredConcerts);
+    document.getElementById("date").addEventListener("change", displayFilteredConcerts);
+    document.getElementById("heure").addEventListener("change", displayFilteredConcerts);
+</script>
+
+
+
+    @* <script>
     fetch('../../JS/articles.json')
         .then(response => {
             if (!response.ok) {
@@ -44,7 +270,7 @@
         var i = 1;
             // planning artiste
         function planningConcert(articles){
-
+              
             articles.forEach(element => {
                 if (element.article_etiquettes[0] == "2")
                 {
@@ -298,4 +524,4 @@
 
 
 </script>
-
+ *@

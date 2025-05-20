@@ -16,9 +16,13 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="https://cdn.maptiler.com/maptiler-sdk-js/v3.0.1/maptiler-sdk.umd.min.js"></script>
     <link href="https://cdn.maptiler.com/maptiler-sdk-js/v3.0.1/maptiler-sdk.css" rel="stylesheet" />
+    @* <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> *@
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    @* <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> *@
+
 </head>
 <body>
-    <header>
+    <header class="fixed-top">
         
         <div class="fontfestival">
             <a class="navbar-brand festivaltitre titretaille d-flex justify-content-center" asp-area="" asp-controller="Home" asp-action="Index">Festival Nation Sounds</a>
@@ -66,40 +70,31 @@
                         <li class="nav-item">
                             <a class="nav-link text-warning " asp-area="" asp-controller="Carte" asp-action="Carte"><strong>Carte intéractive</strong> </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-warning " asp-area="" asp-controller="home" asp-action="FAQ"><strong>FAQ</strong> </a>
+                        </li>
                     </ul>
                 </div>
             </div>
         </nav>
        
     </header>
-    <div class="fontpage">
-        <main role="main" class="pb-3">
+    <main role="main" class="pb-3 backgroundpage">
             @RenderBody()
         </main>
-    </div>
-
-    <footer class="border-top  footer fontfestival ">
-        <div class="container row row-cols-3 footermobile   ">
-            <div class="col-3 festivaltitre">
-                &copy; 2024 - FestivalNationSound -
-            </div>
-            <div class="col-6">
-                <a href="https://www.facebook.com/Nation.festival"><img src="~/images/réseau sociaux/facebook.png" class="reseau m-2" /></a>
-                <a href="https://www.instagram.com/festival.nationsounds/"><img src="~/images/réseau sociaux/instagram_logo_2022.svg.webp" class="reseau m-2" /></a>
-                <a href="https://www.linkedin.com/in/nationsoundsfestival/?originalSubdomain=fr"><img src="~/images/réseau sociaux/linkedin_logo.svg.png" class="reseaurectangle m-2" /></a>
-                <a href="https://www.youtube.com/watch?v=X8ZuUwMW6jY&ab_channel=NationSounds"><img src="~/images/réseau sociaux/youtube.png" class="reseaurectangle m-2" /></a>
-
-            </div>
-          
-            <div class="col-3">
-                <a asp-area="" asp-controller="Home" asp-action="contact" class="link">Contactez-nous</a>
-                <a asp-area="" asp-controller="Home" asp-action="Privacy" class="link">Mentions Légales</a>
-            </div>
-            
+    <footer class="footer-custom">
+        <p class="footer-text">© 2025 Festival Nation Sound</p>
+        <div class="footer-socials">
+            <a href="https://www.facebook.com/Nation.festival"><img src="~/images/réseau sociaux/facebook.png" alt="Facebook" class="reseau" /></a>
+            <a href="https://www.instagram.com/festival.nationsounds/"><img src="images/réseau sociaux/Instagram_logo_2022.svg.webp" alt="Instagram" class="reseau" /></a>
+            <a href="https://www.linkedin.com/in/nationsoundsfestival/?originalSubdomain=fr"><img src="images/réseau sociaux/LinkedIn_Logo.svg.png" alt="Linkedin" class="reseau" /></a>
+            <a href="https://www.youtube.com/watch?v=X8ZuUwMW6jY&ab_channel=NationSounds"><img src="~/images/réseau sociaux/youtube.png" alt="Youtube" class="reseau" /></a>
         </div>
-       
+        <a asp-area="" asp-controller="Home" asp-action="contact" class="link footer-text">Contactez-nous</a>
+        <a asp-area="" asp-controller="Home" asp-action="Privacy" class="link footer-text">Mentions Légales</a>
+
     </footer>
-    
+
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)

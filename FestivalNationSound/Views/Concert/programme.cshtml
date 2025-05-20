@@ -3,7 +3,7 @@
 }
 <h1 class="d-flex justify-content-center"><strong> @ViewData["Title"]</strong></h1>
 
-<div id="programmation">
+<div id="programmation" class="row">
    
 </div>
 
@@ -27,9 +27,10 @@
         articles.forEach(element => {
             if (element.article_etiquettes[0] == "1") {
                 let div = document.createElement("div"); /* div qui englobe toutes les cards*/
+                div.className = "col-12 col-md-6 col-lg-3 d-flex justify-content-center mb-4";
                 
                 let divprogramme = document.createElement("div"); /*div qui crée la card*/
-                div.className = "d-flex justify-content-center";
+       
                 let image = document.createElement("img");
                 let divbody = document.createElement("div");/* div dans laquelle on insére la date */
                 let date = document.createElement("p"); /*insere la date  */

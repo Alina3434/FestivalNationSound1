@@ -1,31 +1,45 @@
-﻿
-@{
-    ViewData["Title"] = "Contactez-nous";
-}
-<div class="fontpage">
-    <h1 class="d-flex justify-content-center">@ViewData["Title"]</h1>
-    <div class="d-flex justify-content-center">
-        <div>
-            <form>
-                <div class="mb-3">
-                    <label for="email" class="form-label">Votre adresse mail</label>
-                    <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
+﻿<div class="fontpage">
+    <h1 class="d-flex justify-content-center">Contacts</h1>
+    <p class="d-flex justify-content-center">Nous sommes joignable par téléphone du lundi au vendredi de 9h à 18h au XXXXXXXXXX </p>
+    <p class="d-flex justify-content-center">Pour contacter le service presse et partenaires : email@festivalnationsound</p>
+</div>
 
-                </div>
-                <div class="mb-3">
-                    <label for="nom" class="form-label">Votre nom</label>
-                    <input type="text" class="form-control" id="nom">
-                </div>
-                <div class="mb-3">
-                    <label for="message" class="form-label">Votre message</label>
-                    <textarea class="form-control" id="message" placeholder="Laissez votre message"></textarea>
-                </div>
-
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
-        </div>
-
+<div class="contact-page" role="form" aria-labelledby="form-header">
+    <div class="form-header">
+        <h1 id="form-header">Envoyer un message</h1>
     </div>
+    <form class="contact-form">
+        <div class="form-group">
+            <label for="prenom">Identité <span class="required" aria-hidden="true">*</span></label>
+            <div class="form-row">
+                <input type="text" id="prenom" class="form-control" placeholder="Prénom" aria-required="true">
+                <input type="text" id="nom" class="form-control" placeholder="Nom" aria-required="true">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="email">E-mail <span class="required" aria-hidden="true">*</span></label>
+            <div class="form-row">
+                <input type="email" id="email" class="form-control" placeholder="Saisissez un e-mail" aria-required="true">
+                <input type="email" id="confirm-email" class="form-control" placeholder="Confirmez l'e-mail" aria-required="true">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="sujet">Sujet <span class="required" aria-hidden="true">*</span></label>
+            <select id="sujet" class="form-control" aria-required="true">
+                <option value="" disabled selected>Choisissez un sujet</option>
+                <option value="pmr">Information pratique PMR</option>
+                <option value="stand">Proposition de stand</option>
+                <option value="generales">Informations pratiques générales</option>
+                <option value="autres">Autres</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="message">Message <span class="required" aria-hidden="true">*</span></label>
+            <textarea id="message" class="form-control" placeholder="Faites-nous savoir ce que vous pensez. Vous avez une question à nous poser ? Posez-la." maxlength="600" aria-required="true"></textarea>
+            <small>0 sur 600 caractères maximum</small>
+        </div>
+        <button type="submit" class="btn btn-submit">Envoyer</button>
+    </form>
 </div>
 
 
