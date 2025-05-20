@@ -25,6 +25,8 @@ Using Drupal to create the concert schedule page and concert programming. [https
 
 Use of Bootstrap version 5.3. [https://getbootstrap.com/]
 
+Using MapTiler to construct the map [https://www.maptiler.com/]
+
 
 
 
