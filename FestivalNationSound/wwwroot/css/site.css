@@ -2,41 +2,48 @@ html {
   font-size: 14px;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
 }
 
 body {
-  margin-bottom: 60px;
-}
-.reseau{
-    width: 50px;
-    height: 50px;
+  
+    padding-top: 100px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
-.reseaurectangle{
-    width: 100px;
-    height: 50px;
+main {
+    padding-top: 100px;
 }
+
+    main[role="main"] {
+        flex: 1 0 auto;
+        padding-bottom: 0 !important;
+    }
+
+
+
+.carousel-inner img {
+    width: 100%; /* Ajuste la largeur à 100% du conteneur */
+    height: 700px; /* Hauteur fixe pour toutes les images */
+    object-fit: cover; /* Recadre l'image pour qu'elle remplisse le conteneur */
+    display: block;
+}
+
+
 
 .link {
     text-decoration: none;
-    color: #F26619;
-    
+    color: #F6B12D;
 }
 /*mettre la les ecruitures du menu en jaune foncé*/
 .navbarcolor {
     color: #F6B12D;
 }
 
-.linkcolor{
+.linkcolor {
     color: black;
 }
 
@@ -44,28 +51,31 @@ body {
     color: #F26619;
     pointer-events: auto;
 }
+
 .fontfestival {
     background-color: #335F8A;
 }
-.titretaille{
-    font-size:100px;
+
+.titretaille {
+    font-size: 70px;
 }
-.festivaltitre2 {
-    color: white;
-}
+
+
+
 .menu {
     background-color: #335F8A;
     color: #F6B12D;
 }
+
 .billetterie {
     background-color: #335F8A;
 }
+
 .billetterietexte {
     text-decoration: none;
     color: #F6B12D;
     font-size: 100px;
     text-transform: uppercase;
-    
 }
 
 .tailleImage {
@@ -76,25 +86,81 @@ body {
 .backgroundpage {
     background-color: #55D5E0;
 }
+
+/*page se loger*/
+.card-dormir {
+    background-color: #335F8A; /* Dark blue for the form */
+    color: #F5F5DC; /* Light beige for text */
+    padding: 20px;
+    border-radius: 8px;
+    margin: 2rem; /* Add margin of 2 units */
+}
+
 .btnreserver {
-    background-color: #F6B12D;
-    color: #F26619;
-    
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #F6B12D; /* Yellow for buttons */
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
 }
+
+    .btnreserver:focus {
+        outline: 2px solid #F6B12D; /* Yellow for focus */
+        outline-offset: 2px;
+    }
+
+    .btnreserver:hover {
+        background-color: #F26619; /* Orange for hover state */
+    }
+
+/*page stationner*/
 .btnstationner {
-    background-color: #F26619;
-    color: #2F4558;
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #F6B12D; /* Yellow for buttons */
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
 }
-.pointrestauration a{
+
+    .btnstationner:focus {
+        outline: 2px solid #F6B12D; /* Yellow for focus */
+        outline-offset: 2px;
+    }
+
+    .btnstationner:hover {
+        background-color: #F26619; /* Orange for hover state */
+    }
+
+/*page se restaurer*/
+
+.center-page {
+    min-height: 400px;
+    display: flexbox;
+}
+
+.pointrestauration a {
     text-decoration: none;
     color: black;
 }
-.retraitpuce{
-    list-style-type:none;
-}
-ul{
+
+.retraitpuce {
     list-style-type: none;
 }
+
+ul {
+    list-style-type: none;
+}
+
 .carremanger {
     display: inline-block;
     border: solid;
@@ -107,24 +173,22 @@ ul{
     color: #F26619;
 }
 
+/*page programme*/
 .cardprogramme {
     width: 300px;
-   
     background-color: #335F8A;
-    color: #F26619;
-    
+    color: #55D5E0;
 }
 
-.cardimage{
+.cardimage {
     height: 180px;
     width: 300px;
 }
 
+
+
 .opacity {
     background: hsl(188, 100%, 37%, .5);
-}
-.fontpage {
-    background-color: #55D5E0;
 }
 
 .carreConcert {
@@ -147,7 +211,7 @@ ul{
 
 
 .fontcategorie {
-    color: #F6B12D;
+    color: #335F8A;
 }
 
 
@@ -158,56 +222,276 @@ ul{
 #map {
     background-color: darkred;
     width: auto;
-    height: 500px;
+    height: 1500px;
 }
 
 
 
-.taillefiltre{
-    width:  50px px;
-    height:40 px;
+.taillefiltre {
+    width: 50px px;
+    height: 40 px;
+}
+
+.carte iframe {
+    border: 2px solid #F26619; /* Orange for iframe border */
 }
 
 
-@media only screen and (max-width: 480px) {
-    /*titre du festival*/
-    
-    .titretaille {
-        font-size: 30px;
-    }
+/*page FAQ*/
 
-    .billetterietexte {
-        text-decoration: none;
+.accordion-custom-rounded {
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.accordion-item {
+    background-color: #335F8A;
+    border: none;
+}
+
+.accordion-button {
+    background-color: #335F8A;
+    color: #55D5E0; 
+    border: none;
+}
+
+    .accordion-button:not(.collapsed) {
+        background-color: #335F8A;
         color: #F6B12D;
-        font-size: 50px;
-        text-transform: uppercase;
+        box-shadow: none;
     }
 
+.accordion-body {
+    background-color: #F6B12D;
+    color: #fff; 
+}
 
-    .imagetaillepetit {
-        height: 200px;
-        width: 300px;
-    }
 
 /*footer*/
 
-    .footermobile{
-        justify-content: center;
-        display: block;
 
-    }
 
-/*stationner*/
-
-    .carte {
-        width :350px;
-        height:380px;
-    }
-
-    .test {
-        background-image: url('../images/icone/biere.svg');
-    }
+.footer-custom {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    padding: 1rem 0;
+    background-color: #335F8A;
+    color: #F6B12D;
+    flex-wrap: wrap;
+    flex-shrink: 0;
 }
+
+.footer-text {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.footer-socials {
+    display: flex;
+    gap: 1rem;
+}
+
+    .footer-socials .reseau {
+        width: 40px;
+        height: 40px;
+    }
+
+.reseau {
+    width: 50px;
+    height: 50px;
+}
+/* Responsive : tablette et mobile */
+@media (max-width: 991px) {
+    .carousel-inner img {
+        height: 400px;
+    }
+    
+    
+    
+    .footer-custom {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+    }
+
+    .footer-text {
+        margin-bottom: 1rem;
+    }
+
+    .footer-socials {
+        justify-content: center;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+        .footer-socials .reseau {
+            margin: 0 auto;
+        }
+
+    
+ 
+
+    @media only screen and (max-width: 576px) {
+
+        body {
+            padding-top: 100px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        main {
+            padding-top: 0px;
+        }
+
+
+
+        /*titre du festival*/
+
+        .titretaille {
+            font-size: 30px;
+        }
+
+        /*billetterie*/
+
+        .billetterietexte {
+            text-decoration: none;
+            color: #F6B12D;
+            font-size: 50px;
+            text-transform: uppercase;
+        }
+
+
+        .carousel-inner img {
+            height: 220px;
+        }
+
+        /*footer*/
+
+       
+        /*stationner*/
+
+        .carte {
+            width: 350px;
+            height: 380px;
+        }
+
+        .test {
+            background-image: url('../images/icone/biere.svg');
+        }
+    }
+
+    /* Contact Page Styles */
+    .contact-container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px;
+        border-radius: 8px;
+        background-color: #55D5E0; /* Light blue for the container */
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    .contact-info {
+        text-align: center;
+        padding: 20px;
+        background-color: #55D5E0; /* Light blue for the contact info */
+        border-radius: 8px;
+        color: #2F4558; /* Dark gray for text */
+    }
+
+    .contact-page {
+        background-color: #335F8A; /* Dark blue for the form */
+        color: #F5F5DC; /* Light beige for text */
+        padding: 20px;
+        border-radius: 8px;
+        margin: 2rem; /* Add margin of 2 units */
+    }
+
+    .form-header h1 {
+        text-align: center;
+        font-family: 'Arial', sans-serif;
+        font-size: 24px;
+        margin-bottom: 20px;
+        color: #F5F5DC; /* Light beige */
+    }
+
+    .contact-form .form-group {
+        margin-bottom: 20px;
+    }
+
+    .contact-form label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: #55D5E0; /* Light blue for labels */
+    }
+
+    .contact-form .required {
+        color: #F26619; /* Orange for required asterisk */
+        font-size: 0.9em;
+        font-weight: bold;
+    }
+
+    .contact-form .form-row {
+        display: flex;
+        gap: 10px;
+    }
+
+    .contact-form .form-control {
+        flex: 1;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #F5F5DC; /* Light beige */
+        color: #2F4558; /* Dark gray for text */
+    }
+
+    .contact-form textarea {
+        width: 100%;
+        height: 100px;
+        resize: none;
+    }
+
+    .contact-form small {
+        display: block;
+        margin-top: 5px;
+        font-size: 0.8em;
+        color: #ccc;
+    }
+
+    .btn-submit {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        background-color: #F6B12D; /* Yellow for buttons */
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        cursor: pointer;
+        text-align: center;
+    }
+
+        .btn-submit:hover {
+            background-color: #F26619; /* Orange for hover state */
+        }
+
+    .contact-form .form-control:focus {
+        outline: 2px solid #55D5E0; /* Light blue for focus state */
+        outline-offset: 2px;
+    }
+
+    /* Accessibility Enhancements */
+    .modal-content {
+        outline: 2px solid #55D5E0; /* Light blue for focus */
+    }
+
+
+
 
 
 

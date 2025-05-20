@@ -1,0 +1,121 @@
+﻿@{
+    ViewData["Title"] = "Carte du festival";
+}
+
+<h1 class="d-flex justify-content-center"><strong>@ViewData["Title"]</strong></h1>
+
+
+<div class="row  g-2" id="filtreCarte">
+    <div class="col">
+        <div class="form-floating">
+            <input type="time" class="form-control" id="filtre">
+            <label for="filtre">Concert en cours</label>
+        </div>
+    </div>
+    <div class="col">
+        <div class="form-floating">
+            <select class="form-select" id="filtre">
+                <option selected>Que cherchez vous ?</option>
+                <option value="1"> Les stands de restauration</option>
+                <option value="2"> Les points d'eau et WC'</option>
+                <option value="3">Les scènes</option>
+                <option value="4">Les postes de secours</option>
+                <option value="5">Les points d'info'</option>
+                <option value="6">Les stands de rafraichissement'</option>
+            </select>
+            <label for="filtre"> Catégorie</label>
+        </div>  
+    </div>
+</div>
+<div id="map" class="mt-2"></div>
+
+<div class="marker maplibregl-marker maplibregl-marker-anchor-center" style="background-image: url(&quot;../images/icone/info.svg&quot;); width: 40px; height: 40px; transform: translate(-50%, -50%) translate(820px, 46px) rotateX(0deg) rotateZ(0deg); opacity: 1;" aria-label="Map marker"></div>
+
+<script>
+
+    var tileSource = new HttpTileSource(new GlobalSphericalMercator([43.5722311, 3.9520572], 18),
+        "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+        new [] { "a", "b", "c"}, "OSM");
+
+    var extent = new Extent(-20037508, -20037508, 20037508, 20037508);
+    var screenWidthInPixels = 400; // The width of the map on screen in pixels
+    var resolution = extent.Width / screenWidthInPixels;
+    var tileInfos = tileSource.Schema.GetTileInfos(extent, resolution);
+
+
+    //var map = L.map('map').setView([43.5722311, 3.9520572], 18);
+    //L.tileLayer('https://api.maptiler.com/maps/bright-v2/{z}/{x}/{y}.png?key=vPDbnH44AMxWsEoPTW5d', {
+    //    attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
+    //}).addTo(map);
+//    maptilersdk.config.apiKey = "vPDbnH44AMxWsEoPTW5d";
+//    var map = new maptilersdk.Map({
+//        container: 'map',
+//        style: maptilersdk.MapStyle.STREETS,
+//        center: [3.9520572, 43.5722311],
+//        zoom: 15
+//    });
+//    fetch('../../JS/carte.json')
+//        .then(response => {
+//            if (!response.ok) {
+//                throw new Error('Network response was not ok');
+//            }
+//            return response.json();
+//        })
+//        .then(data => {
+//            console.log(data);
+//            data.pin.forEach(function (marker) {
+//                // create a DOM element for the marker
+//                var el = document.createElement('div');
+//                el.className = 'marker';
+//                //el.style.backgroundImage = //"url('../images/icone/biere.svg')";
+//                //    //'url(../images/icone/'+ marker.properties.svg + ')';
+//                //`url(../images/icone/${marker.properties.svg})`;
+//                el.style.width = marker.properties.iconSize[0] + 'px';
+//                el.style.height = marker.properties.iconSize[1] + 'px';
+
+//                el.addEventListener('click', function () {
+//                    window.alert(marker.properties.message);
+//                });
+
+//                // add marker to map
+//                new maptilersdk.Marker({ element: el })
+//                    .setLngLat(marker.geometry.coordinates)
+//                    .addTo(map);
+            
+//});
+//        })
+//        .catch(error => {
+//            console.error('There has been a problem with your fetch operation:', error);
+//        });
+
+    L.marker([43.57218835367252, 3.951549613043562]).addTo(map);// restaurant BURGER1cO
+    L.marker([43.57213506956365, 3.950906429222877]).addTo(map);// restaurant gauffre and co
+    L.marker([43.57186529638132, 3.9513217462690764]).addTo(map);// restaurant Pizza & Co
+    L.marker([43.572098754013346, 3.94978220894265]).addTo(map);// restaurant Cookie & Co
+    L.marker([43.57274205480563, 3.9510496419974284]).addTo(map);// restaurant Woodpizza
+    L.marker([43.57235296240567, 3.9508205015581463]).addTo(map);// restaurant Candy World
+
+    L.marker([43.572441156903324, 3.950620003673775]).addTo(map);// rafraichissement Cocktail world
+    L.marker([43.57289250319301, 3.9498609759686536]).addTo(map);// rafraichissement  Les glaces à l'italienne
+    L.marker([43.57219213681276, 3.9518301516187333]).addTo(map);// rafraichissement Beer world
+    L.marker([43.57277836996803, 3.9511570515783423]).addTo(map);// rafraichissement Wine world
+    L.marker([43.57177710104039, 3.9501903653501214]).addTo(map);// rafraichissement  Cornet & co
+    L.marker([43.57220251267042, 3.950892107945422]).addTo(map);// rafraichissement Beer & co
+
+
+    L.marker([43.571590334009656, 3.9511642122170696]).addTo(map);// scene galactique
+    L.marker([43.5720883781378, 3.9504409877055857]).addTo(map);// scene mars
+    L.marker([43.57288212746601, 3.9522454686603594]).addTo(map);// scene neptune
+    L.marker([43.573271216447175, 3.9508706260246678]).addTo(map);// scene saturne
+    L.marker([43.572031310802174, 3.949674799357164]).addTo(map);// scene jupiter
+
+    L.marker([43.5725696366016, 3.950382467035972]).addTo(map);// point d eau toilette
+    L.marker([43.57373939393576, 3.9508212125092754]).addTo(map);// point d'eau
+    L.marker([43.57153548438385, 3.950517015647785]).addTo(map);// point d'eau
+
+    L.marker([43.571730448865196, 3.950318117699888]).addTo(map);// point info
+    L.marker([43.573052799993846, 3.9511897587068487]).addTo(map);// point info
+
+
+
+</script>
