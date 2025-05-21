@@ -266,6 +266,114 @@ ul {
     color: #fff; 
 }
 
+/*page contact*/
+
+.contact-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #55D5E0; /* Light blue for the container */
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.contact-info {
+    text-align: center;
+    padding: 20px;
+    background-color: #55D5E0; /* Light blue for the contact info */
+    border-radius: 8px;
+    color: #2F4558; /* Dark gray for text */
+}
+
+.contact-page {
+    background-color: #335F8A; /* Dark blue for the form */
+    color: #F5F5DC; /* Light beige for text */
+    padding: 20px;
+    border-radius: 8px;
+    margin: 2rem; /* Add margin of 2 units */
+}
+
+.form-header h1 {
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #F5F5DC; /* Light beige */
+}
+
+.contact-form .form-group {
+    margin-bottom: 20px;
+}
+
+.contact-form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #55D5E0; /* Light blue for labels */
+}
+
+.contact-form .required {
+    color: #F26619; /* Orange for required asterisk */
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+.contact-form .form-row {
+    display: flex;
+    gap: 10px;
+}
+
+.contact-form .form-control {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #F5F5DC; /* Light beige */
+    color: #2F4558; /* Dark gray for text */
+}
+
+.contact-form textarea {
+    width: 100%;
+    height: 100px;
+    resize: none;
+}
+
+.contact-form small {
+    display: block;
+    margin-top: 5px;
+    font-size: 0.8em;
+    color: #ccc;
+}
+
+.btn-submit {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #F6B12D; /* Yellow for buttons */
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+}
+
+    .btn-submit:hover {
+        background-color: #F26619; /* Orange for hover state */
+    }
+
+.contact-form .form-control:focus {
+    outline: 2px solid #55D5E0; /* Light blue for focus state */
+    outline-offset: 2px;
+}
+
+/* Accessibility Enhancements */
+.modal-content {
+    outline: 2px solid #55D5E0; /* Light blue for focus */
+}
+
 
 /*footer*/
 

@@ -49,25 +49,3 @@ dict.push({
     });
 
 
-articles.forEach(element => {
-    if (element.article_etiquettes[0] == "1") {
-        let carouselItem = document.createElement("div");
-        carouselItem.className = "carousel-item";
-        // Ajoute la classe 'active' au premier élément si besoin
-
-        let link = document.createElement("a");
-        // Utilise l'id de l'article pour générer le lien
-        link.href = '/Concert/Artiste?id=' + element.field_article;
-
-        let image = document.createElement("img");
-        image.src = "../images/artiste programmation/" + element.nid + ".jpg";
-        image.className = "d-block rounded mx-auto";
-        image.alt = element.titre || "Artiste";
-
-        link.appendChild(image);
-        carouselItem.appendChild(link);
-
-        // Ajoute le carouselItem à la div .carousel-inner
-        document.querySelector('.carousel-inner').appendChild(carouselItem);
-    }
-});
