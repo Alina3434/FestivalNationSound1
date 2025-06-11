@@ -4,10 +4,22 @@
 <div class="border border-5 p-5 m-0  d-flex justify-content-center billetterie">
     <a href="https://www.fnacspectacles.com/" class="billetterietexte">Billetterie</a>
 </div>
-<div id="carouselArtiste" class="carousel slide">
+<div id="carouselArtiste" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner"></div>
+
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselArtiste" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+        <span class="visually-hidden">Précédent</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselArtiste" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+        <span class="visually-hidden">Suivant</span>
+    </button>
+</div>
+@* <div id="carouselArtiste" class="carousel slide">
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <a href="/concert/artiste?id=15">
+            <a href="/concert/artiste?id=22">
                 <img src="~/images/artiste programmation/1.jpg" class="d-block rounded mx-auto" alt="Muse">
             </a>
         </div>
@@ -17,57 +29,57 @@
             </a>
         </div>
         <div class="carousel-item">
-            <a href="/concert/artiste?id=11">
+            <a href="/concert/artiste?id=19">
                 <img src="~/images/artiste programmation/11.jpg" class="d-block rounded mx-auto" alt="The weeknd">
             </a>
         </div>
         <div class="carousel-item">
-            <a href="/concert/artiste?id=12">
+            <a href="/concert/artiste?id=17">
                 <img src="~/images/artiste programmation/12.jpg" class="d-block rounded mx-auto" alt="Coldplay">
             </a>
         </div>
         <div class="carousel-item">
-            <a href="/concert/artiste?id=13">
+            <a href="/concert/artiste?id=20">
                 <img src="~/images/artiste programmation/13.jpg" class="d-block rounded mx-auto" alt="indochine">
             </a>
         </div>
         <div class="carousel-item">
-            <a href="/concert/artiste?id=2">
+            <a href="/concert/artiste?id=16">
                 <img src="~/images/artiste programmation/2.jpg" class="d-block rounded mx-auto" alt="LinkinPark">
             </a>
         </div>
         <div class="carousel-item">
-            <a href="/concert/artiste?id=3">
+            <a href="/concert/artiste?id=25">
                 <img src="~/images/artiste programmation/3.jpg" class="d-block rounded mx-auto" alt="The Rolling Stones">
             </a>
         </div>
         <div class="carousel-item">
-            <a href="/concert/artiste?id=4">
+            <a href="/concert/artiste?id=18">
                 <img src="~/images/artiste programmation/4.jpg" class="d-block rounded mx-auto" alt="Lomepal">
             </a>
         </div>
         <div class="carousel-item">
-            <a href="/concert/artiste?id=5">
+            <a href="/concert/artiste?id=26">
                 <img src="~/images/artiste programmation/5.jpg" class="d-block rounded mx-auto" alt="Orelsan">
             </a>
         </div>
         <div class="carousel-item">
-            <a href="/concert/artiste?id=6">
+            <a href="/concert/artiste?id=21">
                 <img src="~/images/artiste programmation/6.jpg" class="d-block rounded mx-auto" alt="Rihanna">
             </a>
         </div>
         <div class="carousel-item">
-            <a href="/concert/artiste?id=7">
+            <a href="/concert/artiste?id=27">
                 <img src="~/images/artiste programmation/7.jpg" class="d-block rounded mx-auto" alt="Ninho">
             </a>
         </div>
         <div class="carousel-item">
-            <a href="/concert/artiste?id=8">
+            <a href="/concert/artiste?id=24">
                 <img src="~/images/artiste programmation/8.jpg" class="d-block rounded mx-auto" alt="Pop crime">
             </a>
         </div>
         <div class="carousel-item">
-            <a href="/concert/artiste?id=9">
+            <a href="/concert/artiste?id=23">
                 <img src="~/images/artiste programmation/9.jpg" class="d-block rounded mx-auto" alt="Saez">
             </a>
         </div>
@@ -80,4 +92,75 @@
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
     </button>
-</div>
+</div> *@
+
+<script>
+       fetch('https://indigo-hare-378632.hostingersite.com/drupal/jsonapi/node/article?include=field_image')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            generateCarousel(data.data, data.included);
+        })
+        .catch(error => {
+            console.error('Erreur lors du chargement des articles :', error);
+        });
+
+    function generateCarousel(articles, images) {
+        const programmationTagId = "19612c08-923b-470f-a812-559222ce379d";
+        const baseURL = "https://indigo-hare-378632.hostingersite.com";
+
+        const carouselInner = document.querySelector("#carouselArtiste .carousel-inner");
+        let isFirst = true;
+
+        articles.forEach(article => {
+            const tags = article.relationships.field_tags?.data || [];
+
+            // Si l'article a le tag "programmation"
+            const hasProgrammationTag = tags.some(tag => tag.id === programmationTagId);
+
+            if (hasProgrammationTag) {
+                // Récupérer l'image si dispo
+                let imageSrc = "";
+                const imageId = article.relationships.field_image?.data?.id;
+                if (imageId) {
+                    const imageFile = images.find(img => img.id === imageId);
+                    if (imageFile) {
+                        imageSrc = baseURL + imageFile.attributes.uri.url;
+                    }
+                }
+
+                // Sinon image de fallback
+                if (!imageSrc) {
+                    imageSrc = "../images/artiste programmation/" + article.attributes.drupal_internal__nid + ".jpg";
+                }
+
+                // Créer la div .carousel-item
+                const carouselItem = document.createElement("div");
+                carouselItem.className = "carousel-item";
+                if (isFirst) {
+                    carouselItem.classList.add("active");
+                    isFirst = false;
+                }
+
+                // Créer le lien vers la page artiste
+                const link = document.createElement("a");
+                link.href = "/concert/artiste?id=" + article.attributes.drupal_internal__nid;
+
+                // Créer l'image
+                const img = document.createElement("img");
+                img.src = imageSrc;
+                img.className = "d-block rounded mx-auto";
+                img.alt = article.attributes.title;
+
+                // Assembler
+                link.appendChild(img);
+                carouselItem.appendChild(link);
+                carouselInner.appendChild(carouselItem);
+            }
+        });
+    }
+</script>

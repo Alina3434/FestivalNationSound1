@@ -8,7 +8,7 @@
 </div>
 
 <script>
-    fetch('../../JS/articles.json')
+        fetch('https://indigo-hare-378632.hostingersite.com/drupal/jsonapi/node/article?include=field_image')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -16,59 +16,74 @@
             return response.json();
         })
         .then(data => {
-            console.log(data);
-            programmationConcert(data);
+            programmationConcert(data.data, data.included);
         })
         .catch(error => {
             console.error('There has been a problem with your fetch operation:', error);
         });
-    function programmationConcert(articles) {
+
+    function programmationConcert(articles, images) {
+        const programmationTagId = "19612c08-923b-470f-a812-559222ce379d";
 
         articles.forEach(element => {
-            if (element.article_etiquettes[0] == "1") {
-                let div = document.createElement("div"); /* div qui englobe toutes les cards*/
+            const etiquettes = element.relationships.field_tags?.data || [];
+            const hasProgrammationTag = etiquettes.some(tag => tag.id === programmationTagId);
+
+            if (hasProgrammationTag) {
+                let div = document.createElement("div");
                 div.className = "col-12 col-md-6 col-lg-3 d-flex justify-content-center mb-4";
-                
-                let divprogramme = document.createElement("div"); /*div qui crée la card*/
-       
-                let image = document.createElement("img");
-                let divbody = document.createElement("div");/* div dans laquelle on insére la date */
-                let date = document.createElement("p"); /*insere la date  */
-                let dateGras=document.createElement("strong");
-                let programmation = document.getElementById("programmation");
-                
-                
-                var lien = '@Url.Action("artiste","Concert")';
-                let link = document.createElement("a");
-                link.href = lien + "?id=" + element.field_article;
+
+                let divprogramme = document.createElement("div");
                 divprogramme.className = "card cardprogramme m-4";
-                image.src="../images/artiste programmation/" + element.nid + ".jpg";
-                image.className = "card - img - top cardimage";
-                divbody.className = "card-body cardprogramme";
-                date.className = "card-text ";
-                dateGras.innerHTML=  element.field_date_programmation;
-                date.appendChild(dateGras);
 
-                link.appendChild(image);
-                divprogramme.appendChild(link);
-                divbody.appendChild(date);
-                divprogramme.appendChild(divbody);
-                
-                div.appendChild(divprogramme);
-                programmation.appendChild(div);
+                let image = document.createElement("img");
 
-        }
-    })
+                // Cherche l’image Drupal si présente
+                const imageId = element.relationships.field_image?.data?.id;
+                if (imageId) {
+                    const imageFile = images.find(img => img.id === imageId);
+                    if (imageFile) {
+                        const imageUrl = imageFile.attributes.uri.url;
+                            let imageSrc = imageUrl;
+    if (!imageUrl.startsWith('/drupal/')) {
+        imageSrc = "/drupal" + imageUrl;
     }
+    image.src = "https://indigo-hare-378632.hostingersite.com" + imageSrc;
+                    } else {
+                        // Fallback image locale si imageFile pas trouvé
+                        image.src = "../images/artiste programmation/" + element.attributes.drupal_internal__nid + ".jpg";
+                    }
+                } else {
+                    // Fallback image locale si pas de field_image
+                    image.src = "../images/artiste programmation/" + element.attributes.drupal_internal__nid + ".jpg";
+                }
 
-  
-   
-      
+                image.className = "card-img-top cardimage";
 
+                let link = document.createElement("a");
+                var lien = '@Url.Action("artiste", "Concert")';
+                link.href = lien + "?id=" + element.attributes.drupal_internal__nid;
+                link.appendChild(image);
 
+                let divbody = document.createElement("div");
+                divbody.className = "card-body cardprogramme";
 
+                let date = document.createElement("p");
+                date.className = "card-text";
 
+                let dateGras = document.createElement("strong");
+                dateGras.innerHTML = element.attributes.field_date_programmation || "Date à venir";
 
+                date.appendChild(dateGras);
+                divbody.appendChild(date);
+                divprogramme.appendChild(link);
+                divprogramme.appendChild(divbody);
+                div.appendChild(divprogramme);
 
+                let programmation = document.getElementById("programmation");
+                programmation.appendChild(div);
+            }
+        });
+    }
 </script>
 

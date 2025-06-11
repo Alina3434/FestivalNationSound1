@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\images\artistes\" />
-    <Folder Include="wwwroot\images\artiste programmation\" />
   </ItemGroup>
 
   <ItemGroup>

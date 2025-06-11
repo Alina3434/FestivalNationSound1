@@ -58,7 +58,7 @@
 </div>
 
 <script>
-    fetch('../../JS/articles.json')
+        fetch('https://indigo-hare-378632.hostingersite.com/drupal/jsonapi/node/article?include=field_image,field_image_2,field_image_3')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -66,165 +66,69 @@
             return response.json();
         })
         .then(data => {
-            console.log(data);
-            partenairesFestival(data);
+            partenairesFestival(data.data, data.included);
         })
         .catch(error => {
-            console.error('There has been a problem with your fetch operation:', error);
+            console.error('Erreur lors de la récupération des articles :', error);
         });
-    function partenairesFestival(articles) {
+
+    function partenairesFestival(articles, images) {
+        const baseURL = "https://indigo-hare-378632.hostingersite.comt";
+
+        // UUID des tags Drupal
+        const tags = {
+            radio: "1bd58511-2830-43fc-9522-826c3ac84b32",
+            etat: "783e40ae-b08c-4344-8cbf-8650deb26881",
+            presse: "62c85941-7fa8-49f0-85e5-fd5610dc8c2c",
+            musique: "2d853f96-1549-4605-a51c-3d366b03b2a7"
+        };
+
         articles.forEach(element => {
+            const etiquettes = element.relationships.field_tags?.data || [];
 
-            // radio
+            // fonction pour ajouter une image dans le bon container depuis une relationship
+            const ajouterImageDepuisRelationship = (relationshipName, containerId) => {
+                const imageId = element.relationships[relationshipName]?.data?.id;
+                if (imageId) {
+                    const imageFile = images.find(img => img.id === imageId);
+                    if (imageFile) {
+                        const imageUrl = imageFile.attributes.uri.url;
 
-            if (element.article_etiquettes[0]=="10") 
-            {
-                let divimage_1 = document.createElement("div"); // on crée la div qui englobera l'image 1
-                divimage_1.className = "col m-2";
-
-                const baseURL = "http://localhost/drupal/";
-                let container = document.getElementById("image-container_radio");
-                let imageHtml = element.field_image_2; 
-                imageHtml = imageHtml.replace('/drupal/', baseURL);
-                divimage_1.innerHTML = imageHtml;
-                container.appendChild(divimage_1);
-
-                let divimage_2 = document.createElement("div"); //on crée la div qui englobe l'image 2
-                divimage_2.className = "col m-2";
-
-                container = document.getElementById("image-container_radio");
-                imageHtml = element.field_image_3;
-                if (imageHtml != null){
-                    imageHtml= imageHtml.replace('/drupal/', baseURL);
-                    divimage_2.innerHTML = imageHtml;
-                    container.appendChild(divimage_2)
+                        let divimage = document.createElement("div");
+                        divimage.className = "col m-2";
+                        let img = document.createElement("img");
+                        img.src = baseURL + imageUrl;
+                        img.className = "tailleImage";
+                        divimage.appendChild(img);
+                        document.getElementById(containerId).appendChild(divimage);
+                    }
                 }
-                var images = document.querySelectorAll('#image-container_radio div img');
+            };
 
-                // Parcourir chaque image et appliquer des modifications
-                images.forEach((img) => {
-                    
+            // fonction pour ajouter les images d’un article dans le bon container
+            const ajouterImages = (containerId) => {
+                ajouterImageDepuisRelationship("field_image", containerId);
+                ajouterImageDepuisRelationship("field_image_2", containerId);
+                ajouterImageDepuisRelationship("field_image_3", containerId);
+            };
 
-                    // Exemple : Modifier la largeur de l'image
-                    img.className = "tailleImage";
-                });
-
-                
-
+            // Vérifie pour chaque catégorie
+            if (etiquettes.some(tag => tag.id === tags.radio)) {
+                ajouterImages("image-container_radio");
             }
 
-            //Etat
-
-
-            else if (element.article_etiquettes[0] == "7") 
-            {
-                let divimage_1 = document.createElement("div"); // on crée la div qui englobera l'image 1
-                divimage_1.className = "col m-2";
-
-                const baseURL = "http://localhost/drupal/";
-                let container = document.getElementById("image-container_Etat");
-                let imageHtml = element.field_image_2;
-                imageHtml = imageHtml.replace('/drupal/', baseURL);
-                divimage_1.innerHTML = imageHtml;
-                container.appendChild(divimage_1);
-
-                let divimage_2 = document.createElement("div"); //on crée la div qui englobe l'image 2
-                divimage_2.className = "col m-2";
-
-                container = document.getElementById("image-container_Etat");
-                imageHtml = element.field_image_3;
-                if (imageHtml != null) {
-                    imageHtml = imageHtml.replace('/drupal/', baseURL);
-                    divimage_2.innerHTML = imageHtml;
-                    container.appendChild(divimage_2)
-                }
-                var images = document.querySelectorAll('#image-container_Etat div img');
-
-                // Parcourir chaque image et appliquer des modifications
-                images.forEach((img) => {
-
-
-                    // Exemple : Modifier la largeur de l'image
-                    img.className = "tailleImage";
-                });
+            if (etiquettes.some(tag => tag.id === tags.etat)) {
+                ajouterImages("image-container_Etat");
             }
 
-
-            //// presse
-
-            else if (element.article_etiquettes[0] == "8") {
-                let divimage_1 = document.createElement("div"); // on crée la div qui englobera l'image 1
-                divimage_1.className = "col m-2";
-
-                const baseURL = "http://localhost/drupal/";
-                let container = document.getElementById("image-container_presse");
-                let imageHtml = element.field_image_2;
-                imageHtml = imageHtml.replace('/drupal/', baseURL);
-                divimage_1.innerHTML = imageHtml;
-                container.appendChild(divimage_1);
-
-                let divimage_2 = document.createElement("div"); //on crée la div qui englobe l'image 2
-                divimage_2.className = "col m-2";
-
-                container = document.getElementById("image-container_presse");
-                imageHtml = element.field_image_3;
-                if (imageHtml != null) {
-                    imageHtml = imageHtml.replace('/drupal/', baseURL);
-                    divimage_2.innerHTML = imageHtml;
-                    container.appendChild(divimage_2)
-                }
-                var images = document.querySelectorAll('#image-container_presse div img');
-
-                // Parcourir chaque image et appliquer des modifications
-                images.forEach((img) => {
-
-
-                    // Exemple : Modifier la largeur de l'image
-                    img.className = "tailleImage";
-                });
-
+            if (etiquettes.some(tag => tag.id === tags.presse)) {
+                ajouterImages("image-container_presse");
             }
 
-            //// musique
-
-            else if (element.article_etiquettes[0] == "9"){
-
-                let divimage_1 = document.createElement("div"); // on crée la div qui englobera l'image 1
-                divimage_1.className = "col m-2";
-
-                const baseURL = "http://localhost/drupal/";
-                let container = document.getElementById("image-container_musique");
-                let imageHtml = element.field_image_2;
-                imageHtml = imageHtml.replace('/drupal/', baseURL);
-                divimage_1.innerHTML = imageHtml;
-                container.appendChild(divimage_1);
-
-                let divimage_2 = document.createElement("div"); //on crée la div qui englobe l'image 2
-                divimage_2.className = "col m-2";
-
-                container = document.getElementById("image-container_musique");
-                imageHtml = element.field_image_3;
-                if (imageHtml != null) {
-                    imageHtml = imageHtml.replace('/drupal/', baseURL);
-                    divimage_2.innerHTML = imageHtml;
-                    container.appendChild(divimage_2)
-                }
-                var images = document.querySelectorAll('#image-container_musique div img');
-
-                // Parcourir chaque image et appliquer des modifications
-                images.forEach((img) => {
-
-
-                    // Exemple : Modifier la largeur de l'image
-                    img.className = "tailleImage";
-                });
-            
+            if (etiquettes.some(tag => tag.id === tags.musique)) {
+                ajouterImages("image-container_musique");
             }
-
-
-        }
-
-        );};
-        
+        });
+    }
 
 </script>
